@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Amber 🤍</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
+
+:root{
+    --blue-dark:#183b5b;
+    --blue-deep:#28577d;
+    --blue:#4d7ea8;
+    --blue-soft:#8fb4d2;
+    --blue-light:#dcebf5;
+    --paper:#fdfefe;
+    --ink:#29465c;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+    width:100%;
+    min-height:100%;
+    overflow:hidden;
+}
+
+body{
+    background:radial-gradient(circle at 50% 40%,#fff 0%,#eef6fb 45%,#d5e6f1 100%);
+    color:var(--ink);
+    font-family:'Montserrat',sans-serif;
+}
+
+.screen{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    visibility:hidden;
+    transform:scale(1.03);
+    transition:opacity 1s ease,visibility 1s ease,transform 1.2s cubic-bezier(.22,1,.36,1);
+}
+
+.screen.active{opacity:1;visibility:visible;transform:scale(1)}
+.content{position:relative;z-index:5;text-align:center}
+
+#opening{
+    background:radial-gradient(circle at center,rgba(255,255,255,.9),transparent 45%),linear-gradient(135deg,#f3f9fd,#d9eaf5);
+}
+
+.intro-small{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.15rem;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--blue-dark);
+    opacity:.7;
+    margin-bottom:35px;
+}
+
+.click-button{
+    position:relative;
+    min-width:190px;
+    padding:17px 35px;
+    border:1px solid rgba(40,87,125,.4);
+    border-radius:50px;
+    background:rgba(255,255,255,.55);
+    color:var(--blue-dark);
+    font-family:'Montserrat',sans-serif;
+    font-size:.78rem;
+    font-weight:500;
+    letter-spacing:4px;
+    cursor:pointer;
+    backdrop-filter:blur(8px);
+    box-shadow:0 10px 35px rgba(40,87,125,.12),inset 0 0 20px rgba(255,255,255,.7);
+    transition:all .4s ease;
+}
+
+.click-button::before{
+    content:"";
+    position:absolute;
+    inset:-5px;
+    border:1px solid rgba(77,126,168,.3);
+    border-radius:50px;
+    animation:buttonGlow 3s infinite ease-in-out;
+}
+
+.click-button:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.8);
+    box-shadow:0 15px 45px rgba(40,87,125,.2);
+}
+
+.click-button:active{transform:scale(.97)}
+
+@keyframes buttonGlow{
+    0%,100%{opacity:.2;transform:scale(1)}
+    50%{opacity:.8;transform:scale(1.04)}
+}
+
+#birthday{
+    flex-direction:column;
+    overflow-y:auto;
+    padding:30px 20px;
+    background:radial-gradient(circle at center,rgba(255,255,255,.55),transparent 50%);
+}
+
+.birthday-title{
+    font-family:'Great Vibes',cursive;
+    color:var(--blue-dark);
+    font-size:clamp(3.2rem,8vw,7rem);
+    line-height:1.1;
+    text-shadow:0 4px 20px rgba(40,87,125,.16);
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity 1.4s ease,transform 1.4s cubic-bezier(.22,1,.36,1);
+}
+
+.birthday-title.show{opacity:1;transform:translateY(0)}
+
+.subtitle{
+    margin-top:15px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.15rem;
+    letter-spacing:2px;
+    color:var(--blue-deep);
+    opacity:0;
+    transition:opacity 1.2s ease .8s;
+}
+
+.subtitle.show{opacity:.72}
+
+.book-area{
+    margin-top:55px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    opacity:0;
+    transform:translateY(25px);
+    transition:opacity 1.2s ease 1.4s,transform 1.2s ease 1.4s;
+}
+
+.book-area.show{opacity:1;transform:translateY(0)}
+
+.instruction{
+    margin-bottom:20px;
+    font-family:'Cormorant Garamond',serif;
+    color:var(--blue-deep);
+    font-size:1.25rem;
+    letter-spacing:1px;
+}
+
+.instruction span{
+    display:block;
+    margin-top:5px;
+    font-family:'Montserrat',sans-serif;
+    font-size:.68rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    opacity:.6;
+}
+
+.book{
+    position:relative;
+    width:min(430px,82vw);
+    height:min(285px,55vw);
+    min-height:220px;
+    perspective:1800px;
+    cursor:pointer;
+    filter:drop-shadow(0 20px 25px rgba(30,65,90,.22));
+}
+
+.book-cover,.book-back{
+    position:absolute;
+    inset:0;
+    border-radius:5px 12px 12px 5px;
+}
+
+.book-back{
+    background:linear-gradient(135deg,#315f83,#183b5b);
+    box-shadow:inset -12px 0 20px rgba(0,0,0,.15),inset 0 0 0 2px rgba(255,255,255,.1);
+}
+
+.cover-decoration{
+    position:absolute;
+    inset:14px;
+    border:1px solid rgba(194,220,236,.6);
+    border-radius:3px;
+}
+
+.cover-decoration::before,.cover-decoration::after{
+    content:"✦";
+    position:absolute;
+    color:#c5dce9;
+    font-size:18px;
+}
+
+.cover-decoration::before{
+    top:-12px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#234e70;
+    padding:0 8px;
+}
+
+.cover-decoration::after{
+    bottom:-12px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#234e70;
+    padding:0 8px;
+}
+
+.cover-title{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:80%;
+    text-align:center;
+    color:#dcecf5;
+    font-family:'Great Vibes',cursive;
+    font-size:2.7rem;
+}
+
+.cover-name{
+    display:block;
+    margin-top:8px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:.8rem;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:#bcd4e4;
+}
+
+.page{
+    position:absolute;
+    top:5%;
+    width:48%;
+    height:90%;
+    background:linear-gradient(90deg,rgba(70,120,155,.07),transparent 20%),var(--paper);
+    box-shadow:inset 0 0 18px rgba(60,100,130,.1);
+    overflow:hidden;
+}
+
+.page.left{left:2%;border-radius:5px 0 0 5px}
+.page.right{right:2%;border-radius:0 5px 5px 0}
+
+.page::after{
+    content:"";
+    position:absolute;
+    inset:7px;
+    border:1px solid rgba(90,135,165,.18);
+    pointer-events:none;
+}
+
+.book-spine{
+    position:absolute;
+    left:49%;
+    top:4%;
+    width:2%;
+    height:92%;
+    background:linear-gradient(90deg,#8caabd,#e5f1f7,#7899ad);
+    z-index:10;
+    border-radius:3px;
+    opacity:.65;
+}
+
+.book-cover{
+    z-index:20;
+    transform-origin:left center;
+    transition:transform 1.7s cubic-bezier(.77,0,.18,1),box-shadow 1.7s ease;
+    background:linear-gradient(135deg,#315f83,#183b5b);
+}
+
+.book.open .book-cover{
+    transform:rotateY(-175deg);
+    box-shadow:-10px 5px 20px rgba(20,50,70,.15);
+}
+
+.letter{
+    position:absolute;
+    z-index:15;
+    left:52%;
+    top:12%;
+    width:42%;
+    height:76%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px;
+    opacity:0;
+    transform:translateX(15px);
+    transition:opacity 1.3s ease 1.8s,transform 1.3s ease 1.8s;
+}
+
+.book.open .letter{opacity:1;transform:translateX(0)}
+
+.letter-text{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(.72rem,1.3vw,.92rem);
+    line-height:1.45;
+    text-align:left;
+    color:var(--ink);
+}
+
+.letter-greeting{
+    font-family:'Great Vibes',cursive;
+    font-size:1.6rem;
+    color:var(--blue-deep);
+    margin-bottom:8px;
+}
+
+.message{opacity:0}
+.message.visible{opacity:1}
+
+.particles{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:1;
+}
+
+.particle{
+    position:absolute;
+    bottom:-30px;
+    color:rgba(40,87,125,.3);
+    animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(0) rotate(0deg);opacity:0}
+    15%{opacity:1}
+    85%{opacity:.8}
+    to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+
+.sparkle{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:#7ea8c5;
+    border-radius:50%;
+    box-shadow:0 0 12px rgba(126,168,197,.8);
+    animation:sparkle 2.8s infinite ease-in-out;
+}
+
+@keyframes sparkle{
+    0%,100%{opacity:0;transform:scale(.4)}
+    50%{opacity:1;transform:scale(1.4)}
+}
+
+.music-button{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:100;
+    width:44px;
+    height:44px;
+    border:1px solid rgba(40,87,125,.3);
+    border-radius:50%;
+    background:rgba(255,255,255,.55);
+    backdrop-filter:blur(8px);
+    color:var(--blue-dark);
+    cursor:pointer;
+    font-size:17px;
+    transition:all .3s ease;
+}
+
+.music-button:hover{
+    transform:scale(1.08);
+    background:rgba(255,255,255,.85);
+}
+
+@media(max-width:600px){
+    .intro-small{font-size:.9rem;letter-spacing:3px}
+    .click-button{min-width:165px;padding:15px 28px}
+    #birthday{padding-top:55px}
+    .birthday-title{font-size:clamp(3rem,14vw,5rem)}
+    .subtitle{font-size:1rem}
+    .book-area{margin-top:40px}
+    .instruction{font-size:1.1rem}
+    .book{width:92vw;height:56vw;min-height:205px}
+    .cover-title{font-size:2.1rem}
+    .letter{padding:8px}
+    .letter-text{font-size:clamp(.62rem,2.5vw,.82rem);line-height:1.35}
+    .letter-greeting{font-size:1.3rem;margin-bottom:4px}
+    .music-button{right:15px;bottom:15px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="particles" id="particles"></div>
+
+<section id="opening" class="screen active">
+    <div class="content">
+        <div class="intro-small">A little something for you</div>
+        <button class="click-button" id="startButton">[ CLICK ME ]</button>
+    </div>
+</section>
+
+<section id="birthday" class="screen">
+    <div class="content">
+
+        <div class="birthday-title" id="birthdayTitle">
+            HAPPY BIRTHDAY, AMBER!
+        </div>
+
+        <div class="subtitle" id="subtitle">
+            A little birthday wish, made just for you.
+        </div>
+
+        <div class="book-area" id="bookArea">
+
+            <div class="instruction">
+                I have something for you...
+                <span>Click the book to open it.</span>
+            </div>
+
+            <div class="book" id="book">
+
+                <div class="book-back"></div>
+                <div class="page left"></div>
+                <div class="page right"></div>
+                <div class="book-spine"></div>
+
+                <div class="letter">
+                    <div class="letter-text">
+                        <div class="letter-greeting">Hi, Amber!</div>
+                        <div class="message" id="message"></div>
+                    </div>
+                </div>
+
+                <div class="book-cover">
+                    <div class="cover-decoration"></div>
+                    <div class="cover-title">
+                        For Amber
+                        <span class="cover-name">With warmest wishes</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<button class="music-button" id="musicButton" aria-label="Toggle music">♫</button>
+
+<script>
+const opening=document.getElementById("opening");
+const birthday=document.getElementById("birthday");
+const startButton=document.getElementById("startButton");
+const birthdayTitle=document.getElementById("birthdayTitle");
+const subtitle=document.getElementById("subtitle");
+const bookArea=document.getElementById("bookArea");
+const book=document.getElementById("book");
+const messageElement=document.getElementById("message");
+const musicButton=document.getElementById("musicButton");
+const particles=document.getElementById("particles");
+
+const birthdayMessage="Today’s your day, and I hope you get to enjoy every moment of it. I genuinely wish you nothing but the best, happiness, and all the good things you deserve. Once again, happy birthday, Amber! I hope you have a beautiful and memorable day. 🤍";
+
+startButton.addEventListener("click",()=>{
+    opening.classList.remove("active");
+
+    setTimeout(()=>birthday.classList.add("active"),350);
+    setTimeout(()=>birthdayTitle.classList.add("show"),700);
+    setTimeout(()=>subtitle.classList.add("show"),1200);
+    setTimeout(()=>bookArea.classList.add("show"),1800);
+
+    startMusic();
+});
+
+let bookOpened=false;
+
+book.addEventListener("click",()=>{
+    if(bookOpened)return;
+    bookOpened=true;
+    book.classList.add("open");
+    setTimeout(typeMessage,2300);
+});
+
+function typeMessage(){
+    messageElement.classList.add("visible");
+    let index=0;
+
+    function type(){
+        if(index<birthdayMessage.length){
+            messageElement.textContent+=birthdayMessage.charAt(index);
+            index++;
+            setTimeout(type,30);
+        }
+    }
+    type();
+}
+
+const symbols=["♡","✦","·","✧","♡"];
+
+function createParticle(){
+    const particle=document.createElement("div");
+    particle.className="particle";
+    particle.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    particle.style.left=Math.random()*100+"%";
+    particle.style.fontSize=(10+Math.random()*15)+"px";
+    particle.style.animationDuration=(9+Math.random()*10)+"s";
+    particle.style.animationDelay=Math.random()*5+"s";
+    particles.appendChild(particle);
+    setTimeout(()=>particle.remove(),20000);
+}
+
+setInterval(createParticle,650);
+
+function createSparkle(){
+    const sparkle=document.createElement("div");
+    sparkle.className="sparkle";
+    sparkle.style.left=Math.random()*100+"%";
+    sparkle.style.top=Math.random()*100+"%";
+    sparkle.style.animationDelay=Math.random()*3+"s";
+    particles.appendChild(sparkle);
+    setTimeout(()=>sparkle.remove(),4000);
+}
+
+setInterval(createSparkle,500);
+
+let audioContext;
+let masterGain;
+let musicPlaying=false;
+let musicTimer;
+
+function startMusic(){
+    if(musicPlaying)return;
+
+    try{
+        audioContext=new(window.AudioContext||window.webkitAudioContext)();
+        masterGain=audioContext.createGain();
+        masterGain.gain.value=.035;
+        masterGain.connect(audioContext.destination);
+        musicPlaying=true;
+        playAmbientChord();
+        musicTimer=setInterval(playAmbientChord,4200);
+        musicButton.textContent="♫";
+    }catch(error){
+        console.log("Audio unavailable.");
+    }
+}
+
+function playAmbientChord(){
+    if(!audioContext||!musicPlaying)return;
+
+    const notes=[261.63,329.63,392.00,493.88];
+
+    notes.forEach((frequency,index)=>{
+        const oscillator=audioContext.createOscillator();
+        const gain=audioContext.createGain();
+
+        oscillator.type="sine";
+        oscillator.frequency.value=frequency;
+
+        gain.gain.setValueAtTime(0,audioContext.currentTime);
+        gain.gain.linearRampToValueAtTime(.16,audioContext.currentTime+1);
+        gain.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+4);
+
+        oscillator.connect(gain);
+        gain.connect(masterGain);
+
+        oscillator.start(audioContext.currentTime+index*.15);
+        oscillator.stop(audioContext.currentTime+4);
+    });
+}
+
+musicButton.addEventListener("click",()=>{
+    if(!audioContext){
+        startMusic();
+        return;
+    }
+
+    if(musicPlaying){
+        musicPlaying=false;
+        clearInterval(musicTimer);
+        masterGain.gain.setTargetAtTime(0,audioContext.currentTime,.15);
+        musicButton.textContent="♪";
+    }else{
+        musicPlaying=true;
+        masterGain.gain.setTargetAtTime(.035,audioContext.currentTime,.15);
+        playAmbientChord();
+        musicTimer=setInterval(playAmbientChord,4200);
+        musicButton.textContent="♫";
+    }
+});
+</script>
+
+</body>
+</html>
